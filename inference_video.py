@@ -90,8 +90,8 @@ if torch.cuda.is_available():
 
 try:
     from model.gmfss import Model
-except:
-    print("Please download our model from model list")
+except Exception as e:
+    print("Please download our model from model list", e)
 model = Model()
 if not hasattr(model, 'version'):
     model.version = 0
@@ -216,10 +216,11 @@ while True:
         frame = read_buffer.get()
     if frame is None:
         break
+
     I0 = I1
     I1 = torch.from_numpy(np.transpose(frame, (2,0,1))).to(device, non_blocking=True).unsqueeze(0).float() / 255.
     I1 = F.interpolate(I1, (ph, pw), mode='bilinear', align_corners=False)
-    
+
     reuse_things = model.reuse(I0, I1, args.scale)
     output = make_inference(I0, I1, reuse_things, args.multi-1)
 
