@@ -256,4 +256,4 @@ if args.png == False and fpsNotAssigned == True and not args.video is None:
     except:
         print("Audio transfer failed. Interpolated video will have no audio")
         targetNoAudio = os.path.splitext(vid_out_name)[0] + "_noaudio" + os.path.splitext(vid_out_name)[1]
-        os.rename(targetNoAudio, vid_out_name)
+        os.rename(vid_out_name, targetNoAudio)
